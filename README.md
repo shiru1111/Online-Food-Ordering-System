@@ -1,2 +1,3 @@
 # Online-Food-Ordering-System
-group 9
+**DOWNLOAD THE ZIP FILE**
+_MAKE SURE ALL FILES IS IN ONE FOLDER ONLY_
