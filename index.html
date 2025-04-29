@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Online Food Ordering</title>
+  <link rel="stylesheet" type="text/css" href="style.css"> 
+  <link rel="icon" href="logo.svg" sizes="32x32">
+</head>
+<header id="mainHeader">
+  <h1>Online Food Ordering System</h1>
+  <div id="headerUserInfo">
+  </div>
+</header>
+<body>
+  <div class="page-container">
+  <div id="loginSection">
+    <h2>Login</h2>
+    <input type="email" id="email" placeholder="Enter your email">
+    <input type="password" id="password" placeholder="Enter your password">
+    <button onclick="login()">Login</button>
+  </div>
+  
+
+<div id="restaurantSection" style="display:none;">
+  <div id="userEmailDisplay" style="font-weight: bold; padding: 10px; text-align: right;">
+    <span id="userEmailText"></span> <!-- This will hold the email -->
+  </div>
+  <button id="logoutButton" onclick="logout()" style="position: absolute; top: 20px; right: 20px; background-color: #A67B5B; color: white; padding: 8px 16px; border-radius: 4px;">Logout</button>
+  <h2>Restaurants</h2>
+  <input type="text" id="restaurantSearch" placeholder="Search restaurants..." oninput="filterRestaurants()" style="margin-bottom: 10px;">
+
+  <ul id="restaurantList"></ul>
+  <div id="adminSection" style="display:none;">
+    <h2>Admin Controls</h2>
+    <button onclick="openGuideModal()">Need Help? Click me!</button>
+    
+    <!-- Guide Modal -->
+    <div id="guideModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <h2>Admin Guide</h2>
+        <p>You have a power to:</p>
+        <ul>
+          <li>Add new restaurants and menu items.</li>
+          <li>Update menu item prices.</li>
+          <li>Delete restaurants or menu items.</li>
+        </ul>
+        <button id="closeGuideBtn" onclick="closeGuideModal()">Close</button>
+      </div>
+    </div>
+    
+  
+    <h3>Add Restaurant</h3>
+    <input type="text" id="newRestaurantName" placeholder="Restaurant Name">
+    <button onclick="addRestaurant()">Add Restaurant</button>
+  
+    <h3>Add Menu Item</h3>
+    <select id="restaurantSelect"></select>
+    <input type="text" id="newMenuItemName" placeholder="Menu Item Name">
+    <input type="number" id="newMenuItemPrice" placeholder="Price">
+    <button onclick="addMenuItem()">Add Menu Item</button>
+  
+    <h3>Adjust Menu Item Price</h3>
+    <input type="number" id="menuItemId" placeholder="Menu Item ID">
+    <input type="number" id="newPrice" placeholder="New Price">
+    <button onclick="updateMenuPrice()">Update Price</button>
+  </div>
+  
+</div>
+
+  
+  
+  <!-- Add Logout button inside restaurantSection -->
+
+  <div id="menuSection" style="display:none;">
+    <h2>Menu</h2>
+    <p id="selectedRestaurantName" style="font-weight: bold;"></p>
+
+    <input type="text" id="menuSearch" placeholder="Search menu items..." oninput="filterMenuItems()" style="margin-bottom: 10px;">
+
+
+  
+    <ul id="menuList"></ul>
+    <p id="totalCost">Total: ₱0</p>
+  
+    <button onclick="placeOrder()">Place Order</button>
+  
+    <p>
+      Name: <input type="text" id="customerName" placeholder="Enter your name">
+    </p>
+  
+    <p>
+      Payment Method:
+      <select id="paymentMethod" onchange="togglePaymentInput()">
+        <option value="">Select</option>
+        <option value="COD">Cash On Delivery (COD)</option>
+        <option value="GCash">GCash</option>
+        <option value="Paymaya">Paymaya</option>
+        <option value="BankAccount">Bank Account</option>
+        <option value="Paypal">Paypal</option>
+      </select>
+    </p>
+  
+    <!-- Account Number input (shown for specific payment methods) -->
+    <p id="accountInput" style="display:none;">
+      Account Number: <input type="text" id="accountNumber" placeholder="Enter account number">
+    </p>
+  
+    <!-- Address input (shown for all payment methods now) -->
+    <div id="addressInput" style="display:none;">
+      <p><strong>Address:</strong></p>
+      <p>House Number: <input type="text" id="houseNumber" placeholder="Enter house number"></p>
+      <p>City: <input type="text" id="city" placeholder="Enter city"></p>
+      <p>Province: <input type="text" id="province" placeholder="Enter province"></p>
+      <p>Postal Code: <input type="text" id="postalCode" placeholder="Enter postal code"></p>
+      <p>Additional Address (optional): <input type="text" id="additionalAddress" placeholder="Enter additional address (optional)"></p>
+    </div>
+  </div>
+  
+    <!-- Payment processing -->
+
+
+  <div id="ordersSection" style="display:none;">
+    <h2>Your Orders</h2>
+    <ul id="ordersList"></ul>
+  </div>
+
+  <!-- Your main content, e.g., cart or order form, goes here -->
+
+<!-- Confirmation Modal -->
+<!-- Confirmation Modal -->
+<div id="confirmationModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <h2>Confirm Your Order</h2>
+    <p><strong>Name:</strong> <span id="confirmName"></span></p>
+    <p><strong>Address:</strong> <span id="confirmAddress"></span></p>
+    <p><strong>Items:</strong> <span id="confirmItems"></span></p>
+    <p><strong>Total:</strong> ₱<span id="confirmTotal"></span></p>
+    <button id="confirmOrderBtn">Confirm Order</button>
+    <button id="cancelOrderBtn">Cancel</button>
+  </div>
+</div>
+
+
+<script src="script.js"></script>
+</div>
+
+</body>
+<footer id="mainFooter">
+  <div class="footer-container">
+    <div class="footer-description">
+      <p><strong>Group 9 - Online Food Ordering System</strong></p>
+      <p>This web application was developed for a Finals Project for Information Management</p>
+    </div>
+
+    <div class="footer-members">
+      <p><strong>Group Members:</strong></p>
+      <ul>
+        <li>John Arevalo</li>
+        <li>Niel Reyes</li>
+        <li>Rachel Ramos</li>
+        <li>Terrence Manlapaz</li>
+        <li>Yasmien Regidor</li>
+      </ul>
+    </div>
+
+    <p class="footer-copy">&copy; 2025 Group 9 - All rights reserved.</p>
+  </div>
+</footer>
+
+
+</html>
